@@ -1,13 +1,10 @@
-const username = localStorage.getItem('username');
 const firebaseConfig = {
-    apiKey: "AIzaSyBexyNPogru8Jc7sq4FoZBrFEckPrmBS8c",
-    authDomain: "eronixmc.firebaseapp.com",
-    databaseURL: "https://eronixmc-default-rtdb.firebaseio.com",
-    projectId: "eronixmc",
-    storageBucket: "eronixmc.appspot.com",
-    messagingSenderId: "469680302705",
-    appId: "1:469680302705:web:b2475a19ba090001e109d0",
-    measurementId: "G-6Z685TD6MN"
+    apiKey: "AIzaSyAqmtPKLEsEzG-SZlldqNrXJp4xTiE2LnA",
+    authDomain: "eronix01-2c077.firebaseapp.com",
+    projectId: "eronix01-2c077",
+    storageBucket: "eronix01-2c077.appspot.com",
+    messagingSenderId: "930524623646",
+    appId: "1:930524623646:web:ebd7a0ab82c62db26f8f0f"
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
