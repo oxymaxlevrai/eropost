@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Forum | Wiki</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../src/css/style.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.1.1/css/all.css">
+</head>
+
+<body>
+    <section class="loggin">
+        <div id="form">
+            <h1>Se connecter</h1>
+            <input id="email" type="text" class="input" required="" placeholder="Email">
+            <input id="password" type="password" class="input" required="" placeholder="Mot de passe">
+            <button class="loginBtn" onclick="login()">Valider</button>
+        </div>
+    </section>
+    <section class="editeur">
+        <div class="mem">
+            <ul>
+                <p>b = bleu</p>
+            </ul>
+            <ul>
+                <p>v = vert</p>
+            </ul>
+            <ul>
+                <p>j = jaune</p>
+            </ul>
+            <ul>
+                <p>r = rouge</p>
+            </ul>
+            <ul>
+                <p>o = orange</p>
+            </ul>
+            <ul>
+                <p>br = saut de ligne</p>
+            </ul>
+        </div>
+        <form id="wikiTable">
+            <input type="text" id="author" disabled>
+            <input type="text" placeholder="image (url)" id="image" required>
+            <input type="text" placeholder="titre" id="titre" required>
+            <textarea placeholder="texte" id="texte" required></textarea>
+            <button>Envoyer le post</button>
+        </form>
+    </section>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+    <script src="./src/js/forumCreate.js"></script>
+    <script>
+        const usernametab = localStorage.getItem('username');
+        document.getElementById("author").placeholder = usernametab;
+
+        function uuidv4() {
+            return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+            );
+        }
+
+        console.log(uuidv4());
+
+        const uptime = new Date();
+        const days = Math.floor(uptime / 86400000);
+        const hours = Math.floor(uptime / 3600000) % 24;
+        const minutes = Math.floor(uptime / 60000) % 60;
+        const secondes = Math.floor(uptime / 1000) % 60;
+        const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+
+        document.getElementById("wikiTable").addEventListener("submit", postChat);
+        function postChat(e) {
+            e.preventDefault();
+            const titre = document.getElementById("titre").value;
+            const imgUrl = document.getElementById("image").value;
+            const texte = document.getElementById("texte").value;
+
+            db.ref("wiki/" + uuidv4()).set({
+                author: usernametab,
+                date: `Le ${uptime.toLocaleDateString(undefined, options)} à ${hours+1}h${minutes}`,
+                img: imgUrl,
+                texte: texte,
+                titre: titre
+            });
+            alert("Poste envoyer !")
+            location.reload()
+        }
+    </script>
+</body>
+
+</html>
